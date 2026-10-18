@@ -3,51 +3,325 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>bMailX — your mail, signed, and carrying money</title>
-<meta name="description" content="bMailX is bMail's home. Every bWalletX name is also name@bmailx.com: one name, two addresses, same key.">
-<meta property="og:title" content="bMailX — your mail, signed, and carrying money">
-<meta property="og:description" content="One name, two addresses: name@bwalletx.com and name@bmailx.com, same key, same badge.">
-<meta property="og:image" content="https://bmailx.com/og-bmailx-v1.png">
-<meta property="og:url" content="https://bmailx.com/">
+<title>bMailX · Email that pays</title>
+<meta name="description" content="bMailX: letters that carry money. Every letter arrives sealed with a paid stamp, strangers pay your price to reach you, friends write free. Your name@bmailx.com address takes payments today.">
+<link rel="canonical" href="https://bmailx.com/">
 <meta property="og:type" content="website">
+<meta property="og:url" content="https://bmailx.com/">
+<meta property="og:site_name" content="bMailX">
+<meta property="og:title" content="bMailX · Email that pays">
+<meta property="og:description" content="Letters that carry money. Sealed, stamped, peer to peer. Set a price to reach you; friends write free.">
+<meta property="og:image" content="https://bmailx.com/og-bmailx-v2.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="bMailX: Email that pays. A sealed letter arriving with a paid stamp.">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://bmailx.com/og-bmailx-v1.png">
+<meta name="twitter:title" content="bMailX · Email that pays">
+<meta name="twitter:description" content="Letters that carry money. Sealed, stamped, peer to peer. Set a price to reach you; friends write free.">
+<meta name="twitter:image" content="https://bmailx.com/og-bmailx-v2.png">
+<meta name="theme-color" content="#000000">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#000;--fg:#f4ead2;--gold:#d4af37;--mute:#9a907a;--line:#2a2416}
+:root{
+  --bg:#000;--ink:#f4f1e8;--muted:#a9a69c;--dim:#7c7a73;
+  --gold:#f5b800;--gold-hi:#ffd24d;--gold-lo:#c98f00;
+  --card:#0d0e11;--edge:#1f2127;--edge-gold:rgba(255,210,77,.28);
+  --grad:linear-gradient(180deg,#ffe58a,#ffd24d 55%,#c98f00);
+  --r:18px;--hf:'Space Grotesk',system-ui,sans-serif;--bf:'IBM Plex Sans',system-ui,sans-serif;
+  --ease:cubic-bezier(.2,.8,.2,1);
+}
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 -apple-system,BlinkMacSystemFont,"Inter","Segoe UI",sans-serif}
-main{max-width:720px;margin:0 auto;padding:72px 16px 64px}
-.mark{font-weight:800;font-size:22px;letter-spacing:-.02em;color:var(--gold)}
-h1{font-size:clamp(34px,7vw,56px);line-height:1.05;letter-spacing:-.03em;margin:28px 0 16px}
-h1 em{font-style:normal;color:var(--gold)}
-p.lead{color:var(--mute);font-size:18px;max-width:560px}
-.addr{margin:28px 0;padding:18px 20px;border:1px solid var(--line);border-radius:14px;background:#0b0905;font:15px/1.8 ui-monospace,SFMono-Regular,Menlo,monospace;overflow-wrap:anywhere}
-.addr b{color:var(--gold);font-weight:600}
-h2{font-size:14px;text-transform:uppercase;letter-spacing:.12em;color:var(--mute);margin:40px 0 12px}
-ul{list-style:none;padding:0;margin:0;border-top:1px solid var(--line)}
-li{display:flex;gap:14px;padding:14px 0;border-bottom:1px solid var(--line);align-items:flex-start}
-.tag{flex:0 0 auto;font-size:12px;font-weight:700;padding:3px 9px;border-radius:999px;margin-top:2px}
-.live{background:var(--gold);color:#000}
-.soon{border:1px solid var(--mute);color:var(--mute)}
-a{color:var(--gold)}
-footer{margin-top:48px;color:var(--mute);font-size:14px}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 var(--bf);overflow-x:hidden}
+a{color:var(--gold-hi);text-underline-offset:3px}
+a:focus-visible{outline:2px solid var(--gold-hi);outline-offset:3px;border-radius:8px}
+.wrap{max-width:1120px;margin:0 auto;padding:0 16px}
+h1,h2,h3{font-family:var(--hf);letter-spacing:-.025em;margin:0}
+.gold{color:var(--gold-hi)}
+.ink{color:var(--ink);font-weight:500}
+
+.nav{display:flex;align-items:center;justify-content:space-between;height:68px}
+.brand{display:flex;align-items:center;gap:10px;color:var(--ink);text-decoration:none;font:700 21px/1 var(--hf);letter-spacing:-.02em}
+.brand img{display:block}
+.nav-links{display:flex;gap:22px;align-items:center}
+.nav-links a:not(.btn){color:var(--muted);text-decoration:none;font-size:15px}
+.nav-links a:not(.btn):hover{color:var(--ink)}
+@media (max-width:640px){.nav-links .hide-s{display:none}}
+
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:48px;padding:0 22px;border-radius:999px;font:600 16px/1 var(--hf);text-decoration:none;transition:transform .16s var(--ease),box-shadow .16s var(--ease),border-color .16s}
+.btn-gold{background:var(--grad);color:#000;box-shadow:0 0 0 1px rgba(255,210,77,.35),0 10px 30px -10px rgba(245,184,0,.6),inset 0 1px 0 rgba(255,255,255,.5)}
+.btn-gold:hover{transform:translateY(-1px);box-shadow:0 0 0 1px rgba(255,210,77,.5),0 14px 36px -10px rgba(245,184,0,.75),inset 0 1px 0 rgba(255,255,255,.5)}
+.btn-gold:active{transform:none}
+.btn-ghost{color:var(--ink);border:1px solid var(--edge)}
+.btn-ghost:hover{border-color:var(--edge-gold)}
+.nav .btn{height:40px;padding:0 16px;font-size:15px}
+
+.hero{display:grid;grid-template-columns:1.05fr .95fr;gap:48px;align-items:center;padding:56px 16px 88px}
+.eyebrow{font:500 13px/1 var(--hf);letter-spacing:.14em;text-transform:uppercase;color:var(--dim);margin:0 0 20px}
+.hero h1{font-size:clamp(52px,8.4vw,96px);line-height:.96;letter-spacing:-.045em}
+.hero h1 span{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.lede{font-size:19px;color:var(--muted);max-width:520px;margin:24px 0 32px}
+.ctas{display:flex;flex-wrap:wrap;gap:12px}
+.hint{margin:18px 0 0;font-size:14px;color:var(--dim)}
+@media (max-width:900px){.hero{grid-template-columns:1fr;gap:28px;padding:28px 16px 64px}}
+
+.stage{position:relative;aspect-ratio:1/1.05;max-width:460px;width:100%;justify-self:center;perspective:900px}
+.stage::before{content:"";position:absolute;inset:10% 4%;background:radial-gradient(closest-side,rgba(245,184,0,.2),transparent 70%)}
+.env{position:absolute;left:6%;right:6%;bottom:6%;height:50%;animation:arrive 1s var(--ease) both}
+.env .back{position:absolute;inset:0;border-radius:14px;background:#15161a;border:1px solid var(--edge)}
+.env .front{position:absolute;inset:0;border-radius:0 0 14px 14px;background:linear-gradient(160deg,#1e1f24,#101114);clip-path:polygon(0 0,50% 48%,100% 0,100% 100%,0 100%);z-index:3}
+.env .front::after{content:"you@bmailx.com";position:absolute;left:0;right:0;bottom:16%;text-align:center;font:500 15px/1 var(--hf);color:var(--muted)}
+.flap{position:absolute;left:0;right:0;top:0;height:52%;transform-origin:top center;z-index:4;animation:flap .55s var(--ease) 1.15s both}
+.flap svg{display:block;width:100%;height:100%}
+.letter{position:absolute;left:6%;right:6%;bottom:8%;height:88%;z-index:2;background:#f6f1e3;color:#17150f;border-radius:10px;padding:16px 18px;box-shadow:0 20px 40px -18px rgba(0,0,0,.8);animation:rise .85s var(--ease) 1.6s both}
+.letter .from{font:600 13px/1 var(--hf);color:#5d5546}
+.letter .line{height:6px;border-radius:4px;background:#ddd5c2;margin-top:10px}
+.letter .line.s{width:62%}
+.letter .paid{position:absolute;left:18px;right:18px;top:92px;display:flex;justify-content:space-between;align-items:baseline;border-top:1px dashed #cbbf9f;padding-top:10px;font:600 14px/1 var(--hf)}
+.letter .paid b{font-size:22px;color:#8a6300}
+.stamp{position:absolute;right:3%;bottom:2%;width:76px;height:90px;z-index:5;animation:stamp .45s var(--ease) .85s both}
+.coin{position:absolute;left:8%;top:4%;z-index:6;font:700 15px/1 var(--hf);color:#000;background:var(--grad);border-radius:999px;padding:10px 14px;box-shadow:0 8px 24px -8px rgba(245,184,0,.8);animation:pop .45s var(--ease) 2.4s both}
+@keyframes arrive{from{opacity:0;transform:translate(-24%,8%) rotate(-7deg)}to{opacity:1;transform:none}}
+@keyframes stamp{from{opacity:0;transform:scale(1.6) rotate(14deg)}to{opacity:1;transform:rotate(6deg)}}
+@keyframes flap{from{transform:rotateX(0)}60%{opacity:1}to{transform:rotateX(180deg);opacity:0}}
+@keyframes rise{from{transform:translateY(0)}to{transform:translateY(-80%)}}
+@keyframes pop{from{opacity:0;transform:translateY(8px) scale(.9)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){
+  .env,.flap,.letter,.stamp,.coin{animation-duration:1ms!important;animation-delay:0s!important}
+  html{scroll-behavior:auto}
+}
+
+section{padding:88px 0;border-top:1px solid #121317}
+.kicker{font:500 13px/1 var(--hf);letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin:0 0 16px}
+h2{font-size:clamp(32px,5vw,52px);line-height:1.04;max-width:760px}
+.sub{color:var(--muted);font-size:18px;max-width:640px;margin:18px 0 0}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:48px}
+@media (max-width:860px){.grid3{grid-template-columns:1fr}}
+.card{position:relative;background:var(--card);border:1px solid var(--edge);border-radius:var(--r);padding:28px 24px 26px}
+.card h3{font-size:22px;margin:18px 0 10px}
+.card p{margin:0;color:var(--muted)}
+.ico{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;background:rgba(245,184,0,.08);border:1px solid var(--edge-gold)}
+.tag{display:inline-block;font:600 11px/1 var(--hf);letter-spacing:.06em;text-transform:uppercase;padding:5px 9px;border-radius:999px}
+.tag.live{background:var(--gold);color:#000}
+.tag.soon{border:1px solid #4a4840;color:var(--muted)}
+.card .tag{position:absolute;top:24px;right:22px}
+.history{margin:40px 0 0;padding:22px 24px;border-left:2px solid var(--gold);background:linear-gradient(90deg,rgba(245,184,0,.07),transparent);border-radius:0 12px 12px 0;color:var(--muted);max-width:760px}
+.history b{color:var(--ink);font-weight:500}
+
+.split{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center}
+@media (max-width:860px){.split{grid-template-columns:1fr;gap:36px}}
+.inbox{background:var(--card);border:1px solid var(--edge);border-radius:var(--r);overflow:hidden}
+.inbox-h{display:flex;justify-content:space-between;align-items:center;padding:14px 18px;border-bottom:1px solid var(--edge);font:600 14px/1 var(--hf);color:var(--muted)}
+.inbox-h.mid{border-top:1px solid var(--edge)}
+.row{display:grid;grid-template-columns:36px 1fr auto;gap:12px;align-items:center;padding:14px 18px;border-bottom:1px solid #16171b}
+.row:last-child{border-bottom:0}
+.av{width:36px;height:36px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#ffe58a,#c98f00);display:grid;place-items:center;font:700 14px/1 var(--hf);color:#000}
+.av.g{background:#23252b;color:var(--muted)}
+.row b{display:block;font:600 15px/1.3 var(--hf)}
+.row small{color:var(--dim);font-size:13px}
+.amt{font:600 15px/1 var(--hf);color:var(--gold-hi);text-align:right;white-space:nowrap}
+.amt.free{color:var(--muted)}
+.row.req{opacity:.55}
+.example{font:500 11px/1 var(--hf);letter-spacing:.1em;text-transform:uppercase;color:var(--dim)}
+.points{list-style:none;padding:0;margin:28px 0 0;display:grid;gap:14px}
+.points li{display:grid;grid-template-columns:20px 1fr;gap:10px;color:var(--muted)}
+.points li b{color:var(--ink);font-weight:500}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--gold);margin-top:9px}
+
+.addr{margin-top:44px;display:grid;grid-template-columns:auto 1fr;background:var(--card);border:1px solid var(--edge);border-radius:var(--r);overflow:hidden;max-width:720px}
+.addr .who{padding:28px 32px;border-right:1px solid var(--edge);display:grid;place-items:center;font:700 34px/1 var(--hf);color:var(--gold-hi)}
+.addr ul{list-style:none;margin:0;padding:0}
+.addr li{padding:20px 24px;border-bottom:1px solid var(--edge);font:500 clamp(18px,3.6vw,24px)/1.2 var(--hf);overflow-wrap:anywhere}
+.addr li:last-child{border-bottom:0}
+.addr li span{display:block;font:400 14px/1.4 var(--bf);color:var(--dim);margin-top:6px}
+@media (max-width:560px){.addr{grid-template-columns:1fr}.addr .who{border-right:0;border-bottom:1px solid var(--edge);padding:20px}}
+
+.status{list-style:none;padding:0;margin:40px 0 0;max-width:820px;border-top:1px solid var(--edge)}
+.status li{display:grid;grid-template-columns:84px 1fr;gap:16px;padding:18px 0;border-bottom:1px solid var(--edge);align-items:start}
+.status li .tag{justify-self:start;margin-top:4px}
+.status li p{margin:0;color:var(--muted)}
+.status li p b{color:var(--ink);font-weight:500}
+
+.get{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-top:40px}
+@media (max-width:980px){.get{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:420px){.get{grid-template-columns:1fr}}
+.get a{display:block;padding:22px 20px;background:var(--card);border:1px solid var(--edge);border-radius:16px;text-decoration:none;color:var(--ink);transition:border-color .16s,transform .16s var(--ease)}
+.get a:hover{border-color:var(--edge-gold);transform:translateY(-2px)}
+.get b{display:block;font:600 18px/1.2 var(--hf)}
+.get span{display:block;color:var(--dim);font-size:14px;margin-top:6px}
+.also{margin-top:20px;color:var(--dim);font-size:14px}
+
+footer{border-top:1px solid #121317;padding:40px 0 56px;color:var(--dim);font-size:14px}
+.foot{display:flex;flex-wrap:wrap;gap:16px 28px;justify-content:space-between;align-items:center}
+.foot nav{display:flex;flex-wrap:wrap;gap:18px}
+.foot nav a{color:var(--muted);text-decoration:none}
+.foot nav a:hover{color:var(--ink)}
 </style>
 </head>
 <body>
+<header class="wrap nav">
+  <a class="brand" href="/" aria-label="bMailX home"><img src="/logo.svg" alt="" width="22" height="30"><span>bMail<span class="gold">X</span></span></a>
+  <nav class="nav-links" aria-label="Main">
+    <a class="hide-s" href="#how">How it works</a>
+    <a class="hide-s" href="#status">Status</a>
+    <a class="btn btn-gold" href="#get">Get your address</a>
+  </nav>
+</header>
+
 <main>
-  <div class="mark">bMailX</div>
-  <h1>Your mail, <em>signed</em>, and carrying money.</h1>
-  <p class="lead">bMailX is the home of bMail. Claim a name in bWalletX and you get two addresses: the same name, on the same key, with the same badge.</p>
-  <div class="addr">$john<br><b>john@bwalletx.com</b><br><b>john@bmailx.com</b></div>
-  <h2>Status</h2>
-  <ul>
-    <li><span class="tag live">Live</span><span>Paymail: <b>name@bmailx.com</b> receives payments into the same wallet as name@bwalletx.com.</span></li>
-    <li><span class="tag soon">Coming</span><span>A real email inbox at name@bmailx.com.</span></li>
-    <li><span class="tag soon">Coming</span><span>Your Gmail inside bMail.</span></li>
-    <li><span class="tag soon">Coming</span><span>Agreements in bMail: sign, send and seal from your inbox.</span></li>
-  </ul>
-  <footer>Claim your name in <a href="https://bwalletx.com">bWalletX</a>. A Bitcoin Corporation product.</footer>
+<div class="wrap hero">
+  <div>
+    <p class="eyebrow">bMailX · inside bWalletX</p>
+    <h1>Email<br>that <span>pays.</span></h1>
+    <p class="lede">Send money, proof and sealed letters the way you send a letter: signed, private, straight from you to them. No bank in between.</p>
+    <div class="ctas">
+      <a class="btn btn-gold" href="#get">Get your address</a>
+      <a class="btn btn-ghost" href="#how">How it works</a>
+    </div>
+    <p class="hint">Claim a name in bWalletX and <span class="ink">you@bmailx.com</span> is yours too.</p>
+  </div>
+
+  <div class="stage" role="img" aria-label="A sealed letter arrives with a 1 cent stamp, opens, and shows the stamp paid to you.">
+    <div class="env">
+      <div class="back"></div>
+      <div class="letter">
+        <div class="from">From $alice · sealed for you</div>
+        <div class="line"></div><div class="line"></div><div class="line s"></div>
+        <div class="paid"><span>Stamp paid to you</span><b>1¢</b></div>
+      </div>
+      <div class="front"></div>
+      <div class="flap"><svg viewBox="0 0 100 52" preserveAspectRatio="none" aria-hidden="true"><path d="M0 0 H100 L50 50 Z" fill="#24252b" stroke="#33353d" stroke-width=".5"/></svg></div>
+    </div>
+    <svg class="stamp" viewBox="0 0 84 100" aria-hidden="true">
+      <defs><linearGradient id="sg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffe58a"/><stop offset=".6" stop-color="#ffd24d"/><stop offset="1" stop-color="#c98f00"/></linearGradient></defs>
+      <rect x="2" y="2" width="80" height="96" rx="4" fill="url(#sg)" stroke="#000" stroke-width="3" stroke-dasharray="4 4"/>
+      <rect x="10" y="10" width="64" height="80" rx="2" fill="none" stroke="#000" stroke-opacity=".35"/>
+      <text x="42" y="56" text-anchor="middle" font-family="Space Grotesk,system-ui" font-weight="700" font-size="30" fill="#000">1¢</text>
+      <text x="42" y="78" text-anchor="middle" font-family="Space Grotesk,system-ui" font-weight="600" font-size="9.5" letter-spacing="1.4" fill="#000">PENNY POST</text>
+    </svg>
+    <div class="coin">+1¢ received</div>
+  </div>
+</div>
+
+<section id="how">
+  <div class="wrap">
+    <p class="kicker">Three things email can't do</p>
+    <h2>A letter that carries <span class="gold">value</span>, not just words.</h2>
+    <div class="grid3">
+      <article class="card">
+        <span class="tag live">Live</span>
+        <div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ffd24d" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg></div>
+        <h3>Money in the letter</h3>
+        <p>Every bMail carries its stamp as a real payment to the person you write to. Anyone can also pay <span class="ink">name@bmailx.com</span> directly, wallet to wallet, with no bank in between.</p>
+      </article>
+      <article class="card">
+        <span class="tag live">Live</span>
+        <div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ffd24d" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 4 6v6c0 4.5 3.4 8 8 9 4.6-1 8-4.5 8-9V6l-8-3Z"/><path d="m8.5 12 2.5 2.5 4.5-5"/></svg></div>
+        <h3>Proof</h3>
+        <p>Each letter is sealed with the sender's own key and opens only with yours. You know who it came from, and if a single word were changed on the way, it wouldn't open.</p>
+      </article>
+      <article class="card">
+        <span class="tag soon">Coming</span>
+        <div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ffd24d" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 3h7l5 5v13H7z"/><path d="M14 3v5h5"/><path d="M10 17c1-2 2-2 3 0s2 2 3 0"/></svg></div>
+        <h3>Agreements</h3>
+        <p>Send an agreement, you both sign, and it's sealed with a lasting record of who signed and when. Not live yet: see the status list below.</p>
+      </article>
+    </div>
+    <p class="history">PayPal started as a way to <b>send money to an email address</b>: the money travelled beside the message. In bMailX, <b>the letter itself carries the money</b>.</p>
+  </div>
+</section>
+
+<section id="spam">
+  <div class="wrap split">
+    <div>
+      <p class="kicker">Spam pays you</p>
+      <h2>Set a price to reach you.</h2>
+      <p class="sub">Strangers pay your price to land in your inbox, and the stamp is yours to keep. Friends always get in free.</p>
+      <ul class="points">
+        <li><span class="dot"></span><span><b>Penny post to start.</b> Everyone begins at 1¢. Raise it whenever you like.</span></li>
+        <li><span class="dot"></span><span><b>Friends free, on top.</b> People you know skip the stamp and sit at the top.</span></li>
+        <li><span class="dot"></span><span><b>Under your price goes to Requests.</b> Look when you feel like it, or never.</span></li>
+        <li><span class="dot"></span><span><b>Reply paid.</b> Cover their reply so they can answer you for free.</span></li>
+      </ul>
+    </div>
+    <div class="inbox" role="img" aria-label="Example inbox: friends free at the top, paid letters next, unstamped mail in Requests.">
+      <div class="inbox-h"><span>Inbox</span><span class="example">Example</span></div>
+      <div class="row"><div class="av">M</div><div><b>Mum</b><small>Friend · always free</small></div><div class="amt free">Free</div></div>
+      <div class="row"><div class="av">S</div><div><b>$sam</b><small>Friend · always free</small></div><div class="amt free">Free</div></div>
+      <div class="row"><div class="av g">J</div><div><b>$jobs</b><small>Paid your price</small></div><div class="amt">3¢</div></div>
+      <div class="row"><div class="av g">A</div><div><b>$alice</b><small>Paid your price</small></div><div class="amt">1¢</div></div>
+      <div class="inbox-h mid"><span>Requests</span><span class="example">Under your price</span></div>
+      <div class="row req"><div class="av g">?</div><div><b>Unknown sender</b><small>No stamp</small></div><div class="amt free">0¢</div></div>
+    </div>
+  </div>
+</section>
+
+<section id="addresses">
+  <div class="wrap">
+    <p class="kicker">One name, two addresses</p>
+    <h2>Claim one name. Get both.</h2>
+    <p class="sub">Your bWalletX name works at both addresses: same wallet, same key, same badge. Pay either one and it lands in the same place.</p>
+    <div class="addr">
+      <div class="who">$you</div>
+      <ul>
+        <li>you@bmailx.com<span>Your bMail address</span></li>
+        <li>you@bwalletx.com<span>Your wallet address</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="status">
+  <div class="wrap">
+    <p class="kicker">Status</p>
+    <h2>What works today, and what's next.</h2>
+    <p class="sub">Items move to Live when you can use them.</p>
+    <ul class="status">
+      <li><span class="tag live">Live</span><p><b>name@bmailx.com takes payments</b> from any paymail wallet, into the same wallet as name@bwalletx.com.</p></li>
+      <li><span class="tag live">Live</span><p><b>Sealed letters in bMail</b>, inside bWalletX. Only the person you write to can open them.</p></li>
+      <li><span class="tag live">Live</span><p><b>Paid stamps.</b> Each letter's stamp is a real payment to the recipient, checked when it arrives.</p></li>
+      <li><span class="tag live">Live</span><p><b>Your price to reach you.</b> 1¢ by default; friends free and on top; anything under your price goes to Requests.</p></li>
+      <li><span class="tag live">Live</span><p><b>Reply paid.</b> Prepay a reply so the other person can answer for free.</p></li>
+      <li><span class="tag soon">Coming</span><p><b>A real email inbox at name@bmailx.com</b>, so ordinary email reaches you there.</p></li>
+      <li><span class="tag soon">Coming</span><p><b>Your Gmail in bMail</b>, in the same inbox.</p></li>
+      <li><span class="tag soon">Coming</span><p><b>Agreements in bMail:</b> send, both sign, sealed.</p></li>
+      <li><span class="tag soon">Coming</span><p><b>Any amount in a letter</b>, on top of the stamp.</p></li>
+    </ul>
+  </div>
+</section>
+
+<section id="get">
+  <div class="wrap">
+    <p class="kicker">Get it</p>
+    <h2>bMail lives inside bWalletX.</h2>
+    <p class="sub">Get the wallet, claim your name, and your bmailx.com address comes with it.</p>
+    <div class="get">
+      <a href="https://web.bwalletx.com"><b>Web</b><span>Open in your browser</span></a>
+      <a href="https://bwalletx.com/iphone"><b>iPhone</b><span>Web app or TestFlight</span></a>
+      <a href="https://bwalletx.com/android"><b>Android</b><span>APK or Play testing</span></a>
+      <a href="https://desktop.bwalletx.com"><b>Desktop</b><span>The full-screen wallet</span></a>
+      <a href="https://bwalletx.com/extension"><b>Chrome</b><span>Browser extension</span></a>
+    </div>
+    <p class="also">Beta links: <a href="https://testflight.apple.com/join/1TTnQNKm">iPhone TestFlight</a> · <a href="https://play.google.com/apps/internaltest/4701646815257978169">Android Play testing</a> · <a href="https://bwalletx.com/get">all downloads</a></p>
+  </div>
+</section>
 </main>
+
+<footer>
+  <div class="wrap foot">
+    <a class="brand" href="/"><img src="/logo.svg" alt="" width="18" height="24"><span>bMail<span class="gold">X</span></span></a>
+    <nav aria-label="Footer">
+      <a href="https://bwalletx.com">bWalletX</a>
+      <a href="https://bwalletx.com/bmail">bMail</a>
+      <a href="https://bwalletx.com/privacy">Privacy</a>
+      <a href="https://bwalletx.com/terms">Terms</a>
+    </nav>
+    <span>By The Bitcoin Corporation Ltd.</span>
+  </div>
+</footer>
 </body>
 </html>
