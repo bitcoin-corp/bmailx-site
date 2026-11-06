@@ -67,6 +67,8 @@ h1,h2,h3{font-family:var(--hf);letter-spacing:-.025em;margin:0}
 .lede{font-size:19px;color:var(--muted);max-width:520px;margin:24px 0 32px}
 .ctas{display:flex;flex-wrap:wrap;gap:12px}
 .hint{margin:18px 0 0;font-size:14px;color:var(--dim)}
+.hint a{color:var(--ink);text-underline-offset:3px}
+.hint a:hover{color:var(--gold, #ffd24d)}
 @media (max-width:900px){.hero{grid-template-columns:1fr;gap:28px;padding:28px 16px 64px}}
 
 /* the stamp scales in from 1.6x; keep that decorative overshoot from widening the page on phones */
@@ -196,10 +198,10 @@ footer{border-top:1px solid #121317;padding:40px 0 56px;color:var(--dim);font-si
     <p class="lede">Send money, proof and sealed letters the way you send a letter: sealed, private, straight from you to them. No bank in between.</p>
     <div class="ctas">
       <a class="btn btn-gold" href="https://bwalletx.com/get">Get bWalletX</a>
-      <a class="btn btn-ghost" href="#get">Get your address</a>
+      <a class="btn btn-ghost" href="https://web.bwalletx.com/m/bmail">Open bMail</a>
       <a class="btn btn-ghost" href="https://www.bchatx.com/s/bmail">Open the bMail Room</a>
     </div>
-    <p class="hint">Claim a name in bWalletX and <span class="ink">you@bmailx.com</span> is yours too.</p>
+    <p class="hint">Claim a name in bWalletX and <span class="ink">you@bmailx.com</span> is yours too. Already have bWalletX? <a href="https://web.bwalletx.com/m/bmail">Open bMail in your browser</a> and unlock your wallet.</p>
   </div>
 
   <div class="stage" role="img" aria-label="A sealed letter arrives with a 1 cent stamp, opens, and shows the stamp paid to you.">
@@ -239,7 +241,7 @@ footer{border-top:1px solid #121317;padding:40px 0 56px;color:var(--dim);font-si
         <span class="tag live">Live</span>
         <div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ffd24d" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 4 6v6c0 4.5 3.4 8 8 9 4.6-1 8-4.5 8-9V6l-8-3Z"/><path d="m8.5 12 2.5 2.5 4.5-5"/></svg></div>
         <h3>Proof</h3>
-        <p>Each letter is sealed with the sender's own key and opens only with yours. You know who it came from, and if a single word were changed on the way, it wouldn't open.</p>
+        <p>Each letter is sealed between the sender's key and yours, so only the two of you can open it. You know who it came from, and if a single word were changed on the way, it wouldn't open.</p>
       </article>
       <article class="card">
         <span class="tag soon">Coming</span>
@@ -299,7 +301,7 @@ footer{border-top:1px solid #121317;padding:40px 0 56px;color:var(--dim);font-si
     <p class="sub">Items move to Live when you can use them.</p>
     <ul class="status">
       <li><span class="tag live">Live</span><p><b>name@bmailx.com takes payments</b> from any paymail wallet, into the same wallet as name@bwalletx.com.</p></li>
-      <li><span class="tag live">Live</span><p><b>Sealed letters in bMail</b>, inside bWalletX. Only the person you write to can open them.</p></li>
+      <li><span class="tag live">Live</span><p><b>Sealed letters in bMail</b>, inside bWalletX. Only you and the person you write to can open them.</p></li>
       <li><span class="tag live">Live</span><p><b>Paid stamps.</b> Each letter's stamp is a real payment to the recipient, checked when it arrives.</p></li>
       <li><span class="tag live">Live</span><p><b>Your price to reach you.</b> 1¢ by default; friends free and on top; anything under your price goes to Requests.</p></li>
       <li><span class="tag live">Live</span><p><b>Reply paid.</b> Prepay a reply so the other person can answer for free.</p></li>
@@ -318,7 +320,7 @@ footer{border-top:1px solid #121317;padding:40px 0 56px;color:var(--dim);font-si
     <p class="sub">Get the wallet, claim your name, and your bmailx.com address comes with it.</p>
     <p><a class="btn btn-gold" href="https://bwalletx.com/get">Get bWalletX</a></p>
     <div class="get">
-      <a href="https://web.bwalletx.com"><b>Web</b><span>Open in your browser</span></a>
+      <a href="https://web.bwalletx.com/m/bmail"><b>Web</b><span>Open bMail in your browser</span></a>
       <a href="https://bwalletx.com/iphone"><b>iPhone</b><span>Web app or TestFlight</span></a>
       <a href="https://bwalletx.com/android"><b>Android</b><span>APK or Play testing</span></a>
       <a href="https://desktop.bwalletx.com"><b>Desktop</b><span>The full-screen wallet</span></a>
